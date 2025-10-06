@@ -1,15 +1,20 @@
 version: 2.1
 
 jobs:
-  hello-world:
+  build:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:18.17
     steps:
       - checkout
-      - run: echo "Hello from yato"
+      - run:
+          name: Install dependencies
+          command: npm Install
+      - run:
+          name: Run tests
+          command: npm test
 
 workflows:
   version: 2
-  basic_workflow:
+  build_and_test:
     jobs:
-      - hello-world
+      - build
