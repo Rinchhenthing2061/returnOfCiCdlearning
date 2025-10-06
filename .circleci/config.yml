@@ -1,20 +1,27 @@
 version: 2.1
 
 jobs:
-  build:
+  deploy:
     docker:
-      - image: cimg/node:18.17
+      - image: cimg/base:stable   # Ubuntu-based image with SSH and Docker
     steps:
       - checkout
+
+      # Attach your uploaded SSH key
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:YwGQdoOc9WHsOtzv6TMK9O3D9Q8VE9hz0HLAclur+JA"
+
       - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Run tests
-          command: npm test
+          name: Deploy to server via SSH
+          command: |
+            echo "hello ji"
+            EOF
 
 workflows:
-  version: 2
-  build_and_test:
+  deploy_workflow:
     jobs:
-      - build
+      - deploy:
+          filters:
+            branches:
+              only: main
