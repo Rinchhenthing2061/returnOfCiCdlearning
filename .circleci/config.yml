@@ -16,7 +16,6 @@ jobs:
           name: Deploy to server via SSH
           command: |
             echo "hello ji"
-            EOF
 
 workflows:
   deploy_workflow:
